@@ -2,6 +2,7 @@ import os,logger
 import pandas as pd
 from src.data_ingestion import *
 from src.data_preprocessing import *
+from src.feature_engineering import *
 
 if __name__ == "__main__":
     data= data_ingestion(data_url="https://raw.githubusercontent.com/vikashishere/Datasets/main/spam.csv",save_dir="data")
@@ -21,3 +22,5 @@ if __name__ == "__main__":
     test_processed_data.to_csv(os.path.join(data_path, "test_processed.csv"), index=False)
     
     logger.debug('Processed data saved to %s', data_path)
+
+    main()
