@@ -51,19 +51,26 @@ def load_data(data_path: str)-> pd.DataFrame:
 def tfidf(train_data: df, test_data: df, max_features: int) -> tuple:
     try:
         vectorizer = TfidfVectorizer(max_features=max_features)
-        train_tfidf = vectorizer.fit_transform(train_data["text"]).toarray()
-        test_tfidf = vectorizer.transform(test_data["text"]).toarray()
-        
-        # Convert numpy arrays to pandas DataFrames
-        train_df = pd.DataFrame(train_tfidf)
-        test_df = pd.DataFrame(test_tfidf)
-        
-        logger.info("TF-IDF transformation completed successfully")
+
+        X_train = train_data['text'].values
+        y_train = train_data['target'].values
+        X_test = test_data['text'].values
+        y_test = test_data['target'].values
+
+        X_train_bow = vectorizer.fit_transform(X_train)
+        X_test_bow = vectorizer.transform(X_test)
+
+        train_df = pd.DataFrame(X_train_bow.toarray())
+        train_df['label'] = y_train
+
+        test_df = pd.DataFrame(X_test_bow.toarray())
+        test_df['label'] = y_test
+
+        logger.debug('tfidf applied and data transformed')
         return train_df, test_df
     except Exception as e:
-        logger.error(f"An error occurred while performing TF-IDF transformation: {str(e)}")
-        raise Exception(f"An error occurred while performing TF-IDF transformation: {str(e)}")
-
+        logger.error('Error during Bag of Words transformation: %s', e)
+        raise
 
 
 def save_data(data: df,file_path:str)->None:

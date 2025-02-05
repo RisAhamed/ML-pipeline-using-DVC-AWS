@@ -32,15 +32,15 @@ def preprocess_data(df: pd.DataFrame,text_col: str,target_col: str)-> pd.DataFra
         logger.info("Starting data preprocessing")
         encoder = LabelEncoder()
         df[target_col] = encoder.fit_transform(df[target_col])
-        logger.debug("Target column encoded")
+        logger.debug('Target column encoded')
 
-        df = df.drop_duplicates(keep="first")
-        logger.debug("Duplicated Removed")
-
-        df.loc[:,text_col]  = df[text_col].apply(transform)
-        logger.debug("Text transformed")
-
-        logger.info("Data preprocessing completed successfully")
+        # Remove duplicate rows
+        df = df.drop_duplicates(keep='first')
+        logger.debug('Duplicates removed')
+        
+        # Apply text transformation to the specified text column
+        df.loc[:, text_col] = df[text_col].apply(transform)
+        logger.debug('Text column transformed')
         return df
     except Exception as e:
         logger.error(f"An error occurred while preprocessing data: {str(e)}")
