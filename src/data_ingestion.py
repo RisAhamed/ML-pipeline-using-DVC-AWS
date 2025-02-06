@@ -91,11 +91,11 @@ def save_data(df_train: pd.DataFrame,df_test : pd.DataFrame, save_dir: str)->Non
 def data_ingestion(data_url: str,save_dir: str,)->None:
     try:
         # config = load_config(params_path)
-        # params = load_params(params_path)
-        params = {'train_test_split': {'test_size': 0.2, 'random_state': 42}}
+        params = load_params("params.yaml")
+        test_size = params['data_ingestion']['test_size']
         df = load_data(data_url)
         df = preprocess_data(df)
-        df_train, df_test = train_test_split(df, **params['train_test_split'])
+        df_train, df_test = train_test_split(df, test_size=test_size)
         save_data(df_train, df_test, save_dir)
         logger.info("Data ingestion completed successfully")
     except Exception as e:

@@ -30,7 +30,7 @@ logger.addHandler(file_handler)
 
 def load_params(params_path: str)-> dict:
     try:
-         with open(load_params,"r") as file:
+         with open(params_path,"r") as file:
               params = yaml.safe_load(file)
               logger.info("Parameters loaded successfully")
               return params
@@ -85,7 +85,8 @@ def save_data(data: df,file_path:str)->None:
 
 def main():
     try:    
-            max_features = 20
+            params = load_params("params.yaml")
+            max_features = params['feature_engineering']['max_features']
             train_data = load_data('./data/interim/train_processed.csv')
             test_data = load_data('./data/interim/test_processed.csv')
     
