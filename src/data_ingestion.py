@@ -101,3 +101,7 @@ def data_ingestion(data_url: str,save_dir: str,)->None:
     except Exception as e:
         logger.error(f"An unexpected error occurred during data ingestion: {str(e)}")
         raise Exception(f"An unexpected error occurred during data ingestion: {str(e)}")
+
+
+if __name__ =="__main__":
+    data= data_ingestion(data_url="https://raw.githubusercontent.com/vikashishere/Datasets/main/spam.csv",save_dir="data")
