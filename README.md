@@ -153,20 +153,6 @@ project/
 - [AWS CLI Documentation](https://aws.amazon.com/cli/)
 - [AWS S3 Documentation](https://docs.aws.amazon.com/s3/)
 
-### 9. License
-
-[Specify your license here]
-
-like MIT,GPL,Apache,etc...
-
-This README provides a complete guide for:
-1. Setting up the development environment
-2. Configuring AWS and creating an S3 bucket
-3. Setting up DVC and connecting it to S3
-4. Basic usage instructions
-5. Best practices and troubleshooting
-6. Project structure and additional resources
-
 Remember to:
 - Replace `your_env_name` with your desired environment name
 - Replace `your-bucket-name` with your actual S3 bucket name
