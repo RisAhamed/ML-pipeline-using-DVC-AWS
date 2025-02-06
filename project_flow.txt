@@ -1,0 +1,60 @@
+DVC (Data Version Control) Basic Commands:
+----------------------------------------
+1. Initialize DVC in project:
+   dvc init
+
+2. Add files/directories to DVC tracking:
+   dvc add <file_or_directory>
+
+3. Push/Pull data:
+   dvc push  # Push data to remote storage
+   dvc pull  # Pull data from remote storage
+
+4. Reproduce pipeline:
+   dvc repro
+
+5. Show pipeline:
+   dvc dag
+
+AWS S3 and DVC Integration:
+--------------------------
+1. Configure AWS CLI (one-time setup):
+   aws configure
+   # Enter your AWS Access Key ID
+   # Enter your AWS Secret Access Key
+   # Enter your default region
+   # Enter your output format (json)
+
+2. Create S3 bucket:
+   aws s3 mb s3://your-bucket-name
+
+3. Add remote storage to DVC with S3:
+   dvc remote add -d storage s3://your-bucket-name/path
+   
+4. Modify remote storage settings (if needed):
+   dvc remote modify storage access_key_id YOUR_ACCESS_KEY_ID
+   dvc remote modify storage secret_access_key YOUR_SECRET_ACCESS_KEY
+   dvc remote modify storage region YOUR_AWS_REGION
+
+5. Push/Pull data to/from S3:
+   dvc push  # Push to S3
+   dvc pull  # Pull from S3
+
+Common AWS S3 Commands:
+----------------------
+1. List buckets:
+   aws s3 ls
+
+2. List contents of bucket:
+   aws s3 ls s3://your-bucket-name
+
+3. Copy files to S3:
+   aws s3 cp local-file s3://your-bucket-name/
+
+4. Sync directory with S3:
+   aws s3 sync local-directory s3://your-bucket-name/path
+
+5. Remove file from S3:
+   aws s3 rm s3://your-bucket-name/file
+
+Note: Replace placeholder values (your-bucket-name, YOUR_ACCESS_KEY_ID, etc.) with your actual AWS credentials and bucket information.
