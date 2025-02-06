@@ -8,6 +8,9 @@ import logging
 import yaml
 from pathlib import Path
 # Ensure the "logs" directory exists
+from dvclive import Live
+import yaml
+
 log_dir = 'logs'
 os.makedirs(log_dir, exist_ok=True)
 
@@ -92,11 +95,20 @@ def save_results(results: dict,results_path: str)->None:
 
 def evaluation_pipeline(model_path: str,data_path: str,results_path: str)->None:
     try:
+        params = load_params("params.yaml")
+        
    
         model = load_model(model_path)
         data = load_data(data_path)
         x_test,y_test = data.iloc[: ,:-1].values,data.iloc[:,-1].values
         results = evaluate_model(model,x_test,y_test)
+        with Live(save_dvc_exp=True) as live:
+            live.log_metric('accuracy', results['accuracy'])
+            live.log_metric('precision', results['precision'])
+            live.log_metric('recall', results['recall'])
+            live.log_metric('auc_score', results['auc_score'])
+        
+            live.log_params(params)
         save_results(results,results_path)
         logger.info('Evaluation pipeline completed successfully')
     except Exception as e:
